@@ -1,15 +1,28 @@
 angular.module('cathacklic')
 
-.controller('BAKER.Exam.Ctrl', function($scope, $ionicModal) {
+.controller('BAKER.Exam.Ctrl', function($scope, $ionicModal, $ionicSlideBoxDelegate) {
   $scope.AddItem ={};
   $scope.blessings = [
-    { title: 'Matthew', id: 1, selected: false },
-    { title: 'Mark', id: 2, selected: false },
-    { title: 'Luke', id: 3, selected: false },
-    { title: 'John', id: 4, selected: false },
-    { title: 'Paul', id: 5, selected: true },
-    { title: 'Peter', id: 6, selected: false }
+    { title: 'Item 1', selected: false },
+    { title: 'Item 2', selected: false },
+    { title: 'Item 3', selected: false },
   ];
+  $scope.favors = [
+    { title: 'Item 1', selected: false },
+    { title: 'Item 2', selected: false },
+    { title: 'Item 3', selected: false },
+  ];
+  $scope.weaknesses = [
+    { title: 'Item 1', selected: false },
+    { title: 'Item 2', selected: false },
+    { title: 'Item 3', selected: false },
+  ];
+  $scope.resolutions = [
+    { title: 'Item 1', selected: false },
+    { title: 'Item 2', selected: false },
+    { title: 'Item 3', selected: false },
+  ];
+
   $scope.showAddItem = function(){
     // $scope.blessings.push({title:title, selected: true});
     $scope.addItemDialog.show();
@@ -17,7 +30,14 @@ angular.module('cathacklic')
   $scope.Add = function(){
     $scope.addItemDialog.hide();
     $scope.AddItem.selected = true;
-    $scope.blessings.push($scope.AddItem);
+    switch($ionicSlideBoxDelegate.currentIndex()){
+      case 0: $scope.blessings.push($scope.AddItem); break;
+      case 1: $scope.favors.push($scope.AddItem); break;
+      case 2: $scope.weaknesses.push($scope.AddItem); break;
+      case 4: $scope.resolutions.push($scope.AddItem); break;
+      default: console.warn("Not on valid scope"); break;
+    }
+
     $scope.AddItem = {};
   }
   $scope.close = function() {
@@ -28,5 +48,9 @@ angular.module('cathacklic')
   }).then(function(modal) {
     $scope.addItemDialog = modal;
   });
+
+  $scope.Save = function(){
+    console.info($scope.blessings);
+  };
 
 });

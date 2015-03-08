@@ -1,6 +1,6 @@
 <ion-view view-title="Daliy Examination">
   <ion-nav-buttons side="right">
-    <button class="button" ng-click="showAddItem()">Add</button>
+    <button class="button icon ion-plus-round" ng-click="showAddItem()"></button>
   </ion-nav-buttons>
 
   <ion-slide-box show-pager="true">
@@ -11,15 +11,16 @@
         <h3 class="title"><b>B.</b>A.K.E.R. - Blessings</h3>
       </ion-header-bar>
       <ion-content>
-        <ion-list>
-          <ion-item class="item item-toggle" ng-repeat="b in blessings">
-            {{b.title}}
+        <div class="card list">
+          <ion-item class="item item-toggle" ng-repeat="x in blessings">
+            {{x.title}}
             <label class="toggle toggle-assertive">
-              <input type="checkbox" ng-model="b.selected">
+              <input type="checkbox" ng-model="x.selected">
               <div class="track"><div class="handle"></div></div>
             </label>
           </ion-item>
-        </ion-list>
+        </div>
+
       </ion-content>
     </ion-slide>
 
@@ -30,15 +31,15 @@
         <h3 class="title">B.<b>A.</b>K.E.R. - Ask</h3>
       </ion-header-bar>
       <ion-content>
-        <ion-list>
-          <ion-item class="item item-toggle" ng-repeat="b in blessings">
-            {{b.title}}
+        <div class="card list">
+          <ion-item class="item item-toggle" ng-repeat="x in favors">
+            {{x.title}}
             <label class="toggle toggle-assertive">
-              <input type="checkbox" ng-model="b.selected">
+              <input type="checkbox" ng-model="x.selected">
               <div class="track"><div class="handle"></div></div>
             </label>
           </ion-item>
-        </ion-list>
+        </div>
       </ion-content>
     </ion-slide>
 
@@ -49,15 +50,15 @@
         <h3 class="title">B.A.<b>K.</b>E.R. - Kill</h3>
       </ion-header-bar>
       <ion-content>
-        <ion-list>
-          <ion-item class="item item-toggle" ng-repeat="b in blessings">
-            {{b.title}}
+        <div class="card list">
+          <ion-item class="item item-toggle" ng-repeat="x in weaknesses">
+            {{x.title}}
             <label class="toggle toggle-assertive">
-              <input type="checkbox" ng-model="b.selected">
+              <input type="checkbox" ng-model="x.selected">
               <div class="track"><div class="handle"></div></div>
             </label>
           </ion-item>
-        </ion-list>
+        </div>
       </ion-content>
     </ion-slide>
 
@@ -68,15 +69,9 @@
         <h3 class="title">B.A.K.<b>E.</b>R. - Embrace</h3>
       </ion-header-bar>
       <ion-content>
-        <ion-list>
-          <ion-item class="item item-toggle" ng-repeat="b in blessings">
-            {{b.title}}
-            <label class="toggle toggle-assertive">
-              <input type="checkbox" ng-model="b.selected">
-              <div class="track"><div class="handle"></div></div>
-            </label>
-          </ion-item>
-        </ion-list>
+        <div class="card list">
+          <p>Take a moment to allow Jesus to embrace us in his merciful love</p>
+        </div>
       </ion-content>
     </ion-slide>
 
@@ -87,16 +82,38 @@
         <h3 class="title">B.A.K.E.<b>R.</b> - Resolution</h3>
       </ion-header-bar>
       <ion-content>
-        <ion-list>
-          <ion-item class="item item-toggle" ng-repeat="b in blessings">
-            {{b.title}}
+        <div class="card list">
+          <ion-item class="item item-toggle" ng-repeat="x in resolutions">
+            {{x.title}}
             <label class="toggle toggle-assertive">
-              <input type="checkbox" ng-model="b.selected">
+              <input type="checkbox" ng-model="x.selected">
               <div class="track"><div class="handle"></div></div>
             </label>
           </ion-item>
-        </ion-list>
+        </div>
       </ion-content>
     </ion-slide>
+
+    <!-- 6) Save
+    ---------------------------------------------------------------- -->
+    <ion-slide>
+      <ion-header-bar class="bar-subheader bar-stable">
+        <h3 class="title">Review and Save</h3>
+      </ion-header-bar>
+      <ion-content>
+        <div class="card list">
+          <ion-item class="item item-divider">Blessing</ion-item>
+          <ion-item ng-repeat="x in blessings | filter:{selected:true}">{{x.title}}</ion-item>
+          <ion-item class="item item-divider">Favors</ion-item>
+          <ion-item ng-repeat="x in favors | filter:{selected:true}">{{x.title}}</ion-item>
+          <ion-item class="item item-divider">Weakness</ion-item>
+          <ion-item ng-repeat="x in weaknesses | filter:{selected:true}">{{x.title}}</ion-item>
+          <ion-item class="item item-divider">Resolutions</ion-item>
+          <ion-item ng-repeat="x in resolutions | filter:{selected:true}">{{x.title}}</ion-item>
+        </div>
+        <button class="button button-block button-positive" ng-click="Save()">Save</button>
+      </ion-content>
+    </ion-slide>
+
   </ion-slide-box>
 </ion-view>
