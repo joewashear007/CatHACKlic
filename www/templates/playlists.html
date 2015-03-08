@@ -1,0 +1,79 @@
+<ion-view view-title="Daliy Examination">
+  <ion-nav-buttons side="right">
+    <button class="button" ng-click="showAddItem()">
+      Add
+    </button>
+  </ion-nav-buttons>
+
+  <ion-slide-box show-pager="true">
+    <ion-slide>
+      <ion-header-bar class="bar-subheader bar-stable">
+        <h3 class="title"><b>B.</b>A.K.E.R. - Blessings</h3>
+      </ion-header-bar>
+      <ion-content>
+        <ion-list>
+          <ion-item class="item item-toggle" ng-repeat="b in blessings">
+            {{b.title}}
+            <label class="toggle toggle-assertive">
+              <input type="checkbox" ng-model="b.selected">
+              <div class="track">
+                <div class="handle"></div>
+              </div>
+            </label>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+      <div class="bar bar-subfooter bar-stable">
+        <h2 class="title"></h2>
+      </div>
+    </ion-slide>
+    <ion-slide>
+      <ion-header-bar class="bar-subheader bar-stable">
+        <h3>Jenny - Physician</h3>
+      </ion-header-bar>
+      <ion-content>
+        <ion-list>
+          <ion-item> Something Here</ion-item>
+          <ion-item> Something Here</ion-item>
+          <ion-item> Something Here</ion-item>
+          <ion-item> Something Here</ion-item>
+          <ion-item> Something Here</ion-item>
+          <ion-item> Something Here</ion-item>
+          <ion-item> Something Here</ion-item>
+          <ion-item> Something Here</ion-item>
+          <ion-item> Something Here</ion-item>
+          <ion-item> Something Here</ion-item>
+          <ion-item> Something Here</ion-item>
+          <ion-item> Something Here</ion-item>
+        </ion-list>
+      </ion-content>
+      <div class="bar bar-subfooter bar-stable">
+        <h2 class="title"></h2>
+      </div>
+    </ion-slide>
+    <ion-slide>
+      <ion-header-bar class="bar-subheader bar-stable">
+        <h3>Jenny - Physician</h3>
+      </ion-header-bar>
+      <ion-content>
+        <ion-list>
+          <ion-item> Something Here</ion-item>
+          <ion-item> Something Here</ion-item>
+          <ion-item> Something Here</ion-item>
+          <ion-item> Something Here</ion-item>
+          <ion-item> Something Here</ion-item>
+          <ion-item> Something Here</ion-item>
+          <ion-item> Something Here</ion-item>
+          <ion-item> Something Here</ion-item>
+          <ion-item> Something Here</ion-item>
+          <ion-item> Something Here</ion-item>
+          <ion-item> Something Here</ion-item>
+          <ion-item> Something Here</ion-item>
+        </ion-list>
+      </ion-content>
+      <div class="bar bar-subfooter bar-stable">
+        <h2 class="title"></h2>
+      </div>
+    </ion-slide>
+  </ion-slide-box>
+</ion-view>
