@@ -23,30 +23,31 @@ angular.module('cathacklic', ['ionic', 'cathacklic.controllers'])
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
-  .state('app', {
+    .state('app', {
     url: "/app",
     abstract: true,
     templateUrl: "templates/menu.html",
     controller: 'AppCtrl'
   })
 
-  .state('app.search', {
-    url: "/search",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/search.html"
+  .state('app.exam', {
+      abstract: true,
+      url: "/exam",
+      views: {
+        'menuContent': {
+          template: "<ion-nav-view name='examContent'></ion-nav-view>"
+        }
       }
-    }
-  })
-
-  .state('app.browse', {
-    url: "/browse",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/browse.html"
+    })
+    .state('app.exam.baker', {
+      url: "/baker",
+      views: {
+        "examContent": {
+          controller: "BAKER.Exam.Ctrl",
+          templateUrl: "templates/exam/baker.html"
+        }
       }
-    }
-  })
+    })
     .state('app.playlists', {
       url: "/playlists",
       views: {
@@ -57,15 +58,6 @@ angular.module('cathacklic', ['ionic', 'cathacklic.controllers'])
       }
     })
 
-  .state('app.single', {
-    url: "/playlists/:playlistId",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/playlist.html",
-        controller: 'PlaylistCtrl'
-      }
-    }
-  });
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/playlists');
 });

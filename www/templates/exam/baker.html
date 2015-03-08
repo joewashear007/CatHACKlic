@@ -1,0 +1,102 @@
+<ion-view view-title="Daliy Examination">
+  <ion-nav-buttons side="right">
+    <button class="button" ng-click="showAddItem()">Add</button>
+  </ion-nav-buttons>
+
+  <ion-slide-box show-pager="true">
+    <!-- 1) Blessings
+    ---------------------------------------------------------------- -->
+    <ion-slide>
+      <ion-header-bar class="bar-subheader bar-stable">
+        <h3 class="title"><b>B.</b>A.K.E.R. - Blessings</h3>
+      </ion-header-bar>
+      <ion-content>
+        <ion-list>
+          <ion-item class="item item-toggle" ng-repeat="b in blessings">
+            {{b.title}}
+            <label class="toggle toggle-assertive">
+              <input type="checkbox" ng-model="b.selected">
+              <div class="track"><div class="handle"></div></div>
+            </label>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ion-slide>
+
+    <!-- 2) Ask
+    ---------------------------------------------------------------- -->
+    <ion-slide>
+      <ion-header-bar class="bar-subheader bar-stable">
+        <h3 class="title">B.<b>A.</b>K.E.R. - Ask</h3>
+      </ion-header-bar>
+      <ion-content>
+        <ion-list>
+          <ion-item class="item item-toggle" ng-repeat="b in blessings">
+            {{b.title}}
+            <label class="toggle toggle-assertive">
+              <input type="checkbox" ng-model="b.selected">
+              <div class="track"><div class="handle"></div></div>
+            </label>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ion-slide>
+
+    <!-- 3) Kill
+    ---------------------------------------------------------------- -->
+    <ion-slide>
+      <ion-header-bar class="bar-subheader bar-stable">
+        <h3 class="title">B.A.<b>K.</b>E.R. - Kill</h3>
+      </ion-header-bar>
+      <ion-content>
+        <ion-list>
+          <ion-item class="item item-toggle" ng-repeat="b in blessings">
+            {{b.title}}
+            <label class="toggle toggle-assertive">
+              <input type="checkbox" ng-model="b.selected">
+              <div class="track"><div class="handle"></div></div>
+            </label>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ion-slide>
+
+    <!-- 4) Embrace
+    ---------------------------------------------------------------- -->
+    <ion-slide>
+      <ion-header-bar class="bar-subheader bar-stable">
+        <h3 class="title">B.A.K.<b>E.</b>R. - Embrace</h3>
+      </ion-header-bar>
+      <ion-content>
+        <ion-list>
+          <ion-item class="item item-toggle" ng-repeat="b in blessings">
+            {{b.title}}
+            <label class="toggle toggle-assertive">
+              <input type="checkbox" ng-model="b.selected">
+              <div class="track"><div class="handle"></div></div>
+            </label>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ion-slide>
+
+    <!-- 5) Resolution
+    ---------------------------------------------------------------- -->
+    <ion-slide>
+      <ion-header-bar class="bar-subheader bar-stable">
+        <h3 class="title">B.A.K.E.<b>R.</b> - Resolution</h3>
+      </ion-header-bar>
+      <ion-content>
+        <ion-list>
+          <ion-item class="item item-toggle" ng-repeat="b in blessings">
+            {{b.title}}
+            <label class="toggle toggle-assertive">
+              <input type="checkbox" ng-model="b.selected">
+              <div class="track"><div class="handle"></div></div>
+            </label>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ion-slide>
+  </ion-slide-box>
+</ion-view>
