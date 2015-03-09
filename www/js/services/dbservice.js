@@ -1,62 +1,11 @@
 var name = "blessingList";
-var dbName = "BAKER.Examination";
 
 document.addEventListener("DOMContentLoaded", function() {
   var db;
   if (!window.indexedDB) {
     window.alert("Your browser doesn't support a stable version of IndexedDB. Such and such feature will not be available.");
   }
-
-  var openRequest = indexedDB.open(dbName, 3);
-  openRequest.onsuccess = function(e) {
-    console.log("Open Request Success!");
-    db = e.target.result
-
-    callback(db);
-
-    db.onerror = function(event) {
-      // Generic error handler for all errors targeted at this database's requests!
-      alert("Database error: " + event.target.errorCode);
-    };
-  }
-
-  openRequest.onerror = function(e) {
-    console.log("Error");
-    console.dir(e);
-  }
-  openRequest.onupgradeneeded = function(e) {
-    console.log("running onupgradeneeded");
-    var thisDB = e.target.result;
-
-    if (!thisDB.objectStoreNames.contains(name)) {
-      var objectStore = thisDB.createObjectStore(name, {
-        autoIncrement: true
-      });
-
-      objectStore.createIndex("page", "page", {
-        unique: false
-      });
-      objectStore.createIndex("title", "title", {
-        unique: false
-      });
-
-      // Use transaction oncomplete to make sure the objectStore creation is
-      // finished before adding data into it.
-      objectStore.transaction.oncomplete = function(event) {
-        // Store values in the newly created objectStore.
-        var customerObjectStore = thisDB.transaction(name, "readwrite").objectStore(name);
-        for (var i = 0; i < 5; i++) {
-          customerObjectStore.add({
-            title: "Item " + i,
-            page: "blessings"
-          });
-        }
-      }
-    }
-    db = e.target.result;
-  }
-
-
+  GetAllBakerExamFields("blessingList", "blessings");
 }, false);
 
 
@@ -64,28 +13,94 @@ document.addEventListener("DOMContentLoaded", function() {
 // DBDeleteRequest.onerror = function(event) {console.log("Error deleting database.");};
 // DBDeleteRequest.onsuccess = function(event) { console.log("Database deleted successfully");};
 
+function ConnectToDatabase(dbName, version, upgradeFunc, callback){
+  var openRequest = indexedDB.open(dbName, version);
+  openRequest.onsuccess = function(e) { callback(null, e.target.result); };
+  openRequest.onerror = function(e) {   callback(e);  };
+  openRequest.onupgradeneeded = function(e){ upgradeFunc(e) };
+  //   db.onerror = function(event) {
+  //     // Generic error handler for all errors targeted at this database's requests!
+  //     alert("Database error: " + event.target.errorCode);
+  //   };
+  // }
+}
 
-function callback(db) {
-  var newData = [{
-    title: "abc",
-    page: "resolutions"
-  }, {
-    title: "xyz",
-    page: "resolutions"
-  }];
-  db.transaction(name).objectStore(name).get(1).onsuccess = function(event) {
-    console.log("Got: ", event.target.result);
-  };
-  var index = db.transaction(name).objectStore(name).index("name");
-  var singleKeyRange = IDBKeyRange.only("Donna");
+function UpgradeDatabase(e) {
+  var db = e.target.result;
 
-  index.openCursor(singleKeyRange).onsuccess = function(event) {
-    var cursor = event.target.result;
-    if (cursor) {
-      console.log("Name: " + cursor.key , cursor.value)
-      cursor.continue();
+  if (!db.objectStoreNames.contains(name)) {
+    var objectStore = db.createObjectStore(name, {
+      autoIncrement: true
+    });
+
+    objectStore.createIndex("page", "page", {
+      unique: false
+    });
+    objectStore.createIndex("title", "title", {
+      unique: false
+    });
+
+    // Use transaction oncomplete to make sure the objectStore creation is
+    // finished before adding data into it.
+    // objectStore.transaction.oncomplete = function(event) {
+    //   // Store values in the newly created objectStore.
+    //   var customerObjectStore = thisDB.transaction(name, "readwrite").objectStore(name);
+    //   for (var i = 0; i < 5; i++) {
+    //     customerObjectStore.add({
+    //       title: "Item " + i,
+    //       page: "blessings"
+    //     });
+    //   }
+    // }
+  }
+}
+
+function GetAllBakerExamFields(objstoreName, category, callback) {
+  ConnectToDatabase("BAKER.Examination", 5, UpgradeDatabase, function(err, db){
+    db.onerror = function(event) {
+        // Generic error handler for all errors targeted at this database's requests!
+        console.warn("Database error: " + event.target.errorCode);
+    };
+    if(err){
+      console.warn("Database Create Error!", err);
+      return;
     }
-  };
+
+    var newData = [{
+      title: "abc",
+      page: "resolutions"
+    }, {
+      title: "xyz",
+      page: "resolutions"
+    }];
+
+    AddData(db, objstoreName, newData, function(err, ids){
+      if(err){
+        console.warn("There is an error!", err);
+        return;
+      }
+      console.info("Added:", ids);
+      var objstore = db.transaction(objstoreName).objectStore(objstoreName);
+      // objstore.get(1).onsuccess = function(event) {
+      //   console.log("Got: ", event.target.result);
+      // };
+
+      var list = [];
+      var index = objstore.index("page");
+      // var singleKeyRange = IDBKeyRange.only(category);
+
+      index.openCursor().onsuccess = function(event) {
+      // index.openCursor(singleKeyRange).onsuccess = function(event) {
+        var cursor = event.target.result;
+        if (cursor) {
+          console.log(cursor.value);
+          list.push(cursor.value);
+          cursor.continue();
+        }
+      };
+    });
+  });
+
   // AddData(db, name, newData, function(error, ids){
   //   console.info("Created:", ids);
   // DeleteData(db, name, newData, function(error, ids){
@@ -98,12 +113,14 @@ function callback(db) {
 
 function AddData(db, name, dataArray, callback) {
   // Start adding data
-  var transaction = db.transaction([name], "readwrite");
+  var transaction = db.transaction(name, "readwrite");
   transaction.oncomplete = function(event) {
     console.info("All done!");
+    callback(null, ids);
   };
   transaction.onerror = function(event) {
     console.warn("Transation Failed", event);
+    callback(event, null);
   };
 
   var ids = []
@@ -114,7 +131,6 @@ function AddData(db, name, dataArray, callback) {
       ids.push(event.target.result);
     };
   }
-  callback(null, ids);
 }
 
 function DeleteData(db, name, dataArray, callback) {
