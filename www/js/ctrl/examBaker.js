@@ -1,7 +1,8 @@
 angular.module('cathacklic')
 
-.controller('BAKER.Exam.Ctrl', function($scope, $ionicModal, $ionicSlideBoxDelegate) {
-  $scope.AddItem ={};
+.controller('BAKER.Exam.Ctrl', function($scope, $ionicModal, $ionicSlideBoxDelegate, DBAccessor) {
+
+  $scope.AddItem = {};
   $scope.blessings = [
     { title: 'Item 1', selected: false },
     { title: 'Item 2', selected: false },
@@ -31,14 +32,16 @@ angular.module('cathacklic')
     $scope.addItemDialog.hide();
     $scope.AddItem.selected = true;
     switch($ionicSlideBoxDelegate.currentIndex()){
-      case 0: $scope.blessings.push($scope.AddItem); break;
-      case 1: $scope.favors.push($scope.AddItem); break;
-      case 2: $scope.weaknesses.push($scope.AddItem); break;
-      case 4: $scope.resolutions.push($scope.AddItem); break;
+      case 0: $scope.blessings.push($scope.AddItem); $scope.AddItem.page = "blessing"; break;
+      case 1: $scope.favors.push($scope.AddItem); $scope.AddItem.page = "favor"; break;
+      case 2: $scope.weaknesses.push($scope.AddItem); $scope.AddItem.page = "weakness"; break;
+      case 4: $scope.resolutions.push($scope.AddItem); $scope.AddItem.page = "resolution"; break;
       default: console.warn("Not on valid scope"); break;
     }
-
-    $scope.AddItem = {};
+    DBAccessor.AddItem($scope.AddItem, function(err, id){
+      if(err){ console.warn("Not Added!", err); return;}
+      console.info("Added: ", id);
+    });
   }
   $scope.close = function() {
     $scope.addItemDialog.hide();
@@ -53,13 +56,8 @@ angular.module('cathacklic')
     console.info($scope.blessings);
   };
 
-  catHACKlic.GetAllBakerExamFields("blessingList", "blessings", function(err, fields) {
-    if(err){
-      console.warn(err);
-      return;
-    }
-    for(var f in fields){
-      console.log(fields[f]);
-    }
+  DBAccessor.ReadFields(function(err, fields){
+    if(err){ console.warn("Can't Read :(", err); return;}
+    console.log(fields);
   });
 });

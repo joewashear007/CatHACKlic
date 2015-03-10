@@ -16,40 +16,43 @@
     }
   }
 
-  catHACKlic.GetAllBakerExamFields = function(objstoreName, category, callback) {
-    catHACKlic.ConnectToDatabase("BAKER.Examination", 5, catHACKlic.UpgradeDatabase, function(err, db){
-      db.onerror = function(event) { callback(event, null); };
-      if(err){callback(err, null); }
-
-      var newData = [{
-        title: "abc",
-        page: "resolutions"
-      }, {
-        title: "xyz",
-        page: "resolutions"
-      }];
-
-      catHACKlic.AddData(db, objstoreName, newData, function(err, ids){
-        if(err){ callback(err, null);  }
+  catHACKlic.GetAllBakerExamFields = function(db, objstoreName, indexName, callback) {
+    // catHACKlic.ConnectToDatabase("BAKER.Examination", 5, catHACKlic.UpgradeDatabase, function(err, db){
+    //   db.onerror = function(event) { callback(event, null); };
+    //   if(err){callback(err, null); }
+    //
+    //   var newData = [{
+    //     title: "abc",
+    //     page: "resolutions"
+    //   }, {
+    //     title: "xyz",
+    //     page: "resolutions"
+    //   }];
+    //
+    //   catHACKlic.AddData(db, objstoreName, newData, function(err, ids){
+    //     if(err){ callback(err, null);  }
+        var fields = {};
         var transaction = db.transaction(objstoreName);
         var objstore = transaction.objectStore(objstoreName);
-        transaction.oncomplete = function(event) { callback(null, list);  };
+        transaction.oncomplete = function(event) { callback(null, fields);  };
         transaction.onerror = function(event) { callback(event, null);  };
 
-        var list = [];
-        var index = objstore.index("page");
+        var index = objstore.index(indexName);
         // var singleKeyRange = IDBKeyRange.only(category);
 
         index.openCursor().onsuccess = function(event) {
         // index.openCursor(singleKeyRange).onsuccess = function(event) {
           var cursor = event.target.result;
           if (cursor) {
-            list.push(cursor.value);
+            if(typeof fields[cursor.key] == "undefined"){
+              fields[cursor.key] = []
+            }
+            fields[cursor.key].push(cursor.value);
             cursor.continue();
           }
         };
-      });
-    });
+    //   });
+    // });
   }
 
 
