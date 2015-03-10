@@ -16,105 +16,67 @@
     }
   }
 
-  catHACKlic.GetAllBakerExamFields = function(db, objstoreName, indexName, callback) {
-    // catHACKlic.ConnectToDatabase("BAKER.Examination", 5, catHACKlic.UpgradeDatabase, function(err, db){
-    //   db.onerror = function(event) { callback(event, null); };
-    //   if(err){callback(err, null); }
-    //
-    //   var newData = [{
-    //     title: "abc",
-    //     page: "resolutions"
-    //   }, {
-    //     title: "xyz",
-    //     page: "resolutions"
-    //   }];
-    //
-    //   catHACKlic.AddData(db, objstoreName, newData, function(err, ids){
-    //     if(err){ callback(err, null);  }
-        var fields = {};
-        var transaction = db.transaction(objstoreName);
-        var objstore = transaction.objectStore(objstoreName);
-        transaction.oncomplete = function(event) { callback(null, fields);  };
-        transaction.onerror = function(event) { callback(event, null);  };
-
-        var index = objstore.index(indexName);
-        // var singleKeyRange = IDBKeyRange.only(category);
-
-        index.openCursor().onsuccess = function(event) {
-        // index.openCursor(singleKeyRange).onsuccess = function(event) {
-          var cursor = event.target.result;
-          if (cursor) {
-            if(typeof fields[cursor.key] == "undefined"){
-              fields[cursor.key] = []
-            }
-            fields[cursor.key].push(cursor.value);
-            cursor.continue();
-          }
-        };
-    //   });
-    // });
+  catHACKlic.GetFields = function(db, storeName, indexName, callback) {
+    var fields = {};
+    var transaction = db.transaction(storeName);
+    var objstore = transaction.objectStore(storeName);
+    var index = objstore.index(indexName);
+    transaction.oncomplete = function(event) { callback(null, fields);  };
+    transaction.onerror = function(event) { callback(event, null);  };
+    index.openCursor().onsuccess = function(event) {
+      var cursor = event.target.result;
+      if (cursor) {
+        if(typeof fields[cursor.key] == "undefined"){
+          fields[cursor.key] = []
+        }
+        fields[cursor.key].push(cursor.value);
+        cursor.continue();
+      }
+    };
   }
 
-
-  catHACKlic.AddData = function(db, name, dataArray, callback) {
-    // Start adding data
+  catHACKlic.AddData = function(db, storeName, data, callback) {
+    // data can either be object or array
+    // always returns array of ids
+    var ids = [];
+    var dataArray;
     var transaction = db.transaction(name, "readwrite");
+    var objstore = transaction.objectStore(storeName);
     transaction.oncomplete = function(event) { callback(null, ids);  };
     transaction.onerror = function(event) { callback(event, null);  };
 
-    var ids = []
-    var objectStore = transaction.objectStore(name);
+    if(!Array.isArray(data)) { dataArray = [data]; }
+    else                     { dataArray = data; }
     for (var i in dataArray) {
-      var request = objectStore.add(dataArray[i]);
-      request.onsuccess = function(event) {
-        ids.push(event.target.result);
-      };
+      var request = objstore.add(dataArray[i]);
+      request.onsuccess = function(event) { ids.push(event.target.result); };
     }
   }
 
-  catHACKlic.DeleteData = function(db, name, dataArray, callback) {
-    // Start adding data
-    var transaction = db.transaction([name], "readwrite");
-    transaction.oncomplete = function(event) {
-      console.info("All done!");
-    };
-    transaction.onerror = function(event) {
-      console.warn("Transation Failed", event);
-    };
-
+  catHACKlic.DeleteData = function(db, storeName, data, callback) {
+    // data can either be object or array
+    // always returns array of delete objects
     var ids = []
-    var objectStore = transaction.objectStore(name);
+    var dataArray;
+    var transaction = db.transaction(name, "readwrite");
+    var objstore = transaction.objectStore(storeName);
+    transaction.oncomplete = function(event) { callback(null, ids);  };
+    transaction.onerror = function(event) { callback(event, null);  };
+
+    if(!Array.isArray(data)) { dataArray = [data]; }
+    else                     { dataArray = data; }
     for (var i in dataArray) {
-      var request = objectStore.delete(dataArray[i]);
-      request.onsuccess = function(event) {
-        ids.push(event.target.result);
-      };
+      var request = objstore.delete(dataArray[i]);
+      request.onsuccess = function(event) { ids.push(event.target.result); };
+      // request.onerror   = function(event) { ids.push(event.target.result); };
     }
-    callback(null, ids);
   }
 
 }( window.catHACKlic = window.catHACKlic || {} ));
 
-var name = "blessingList";
-
-
-
-// document.addEventListener("DOMContentLoaded", function() {
-//   var db;
 //   if (!window.indexedDB) {
 //     window.alert("Your browser doesn't support a stable version of IndexedDB. Such and such feature will not be available.");
 //   }
-//   GetAllBakerExamFields("blessingList", "blessings", function(err, fields) {
-//     if(err){
-//       console.warn(err);
-//       return;
-//     }
-//     for(var f in fields){
-//       console.log(fields[f]);
-//     }
-//   });
-// }, false);
-
 
 // var DBDeleteRequest = indexedDB.deleteDatabase("BAKER.Examination");
 // DBDeleteRequest.onerror = function(event) {console.log("Error deleting database.");};

@@ -1,33 +1,11 @@
 angular.module('cathacklic')
 
-.controller('BAKER.Exam.Ctrl', function($scope, $ionicModal, $ionicSlideBoxDelegate, DBAccessor) {
+.controller('BAKER.Exam.Ctrl', function($scope, $ionicModal, $ionicSlideBoxDelegate, $ionicLoading, DBAccessor) {
 
-  $scope.AddItem = {};
-  $scope.blessings = [
-    { title: 'Item 1', selected: false },
-    { title: 'Item 2', selected: false },
-    { title: 'Item 3', selected: false },
-  ];
-  $scope.favors = [
-    { title: 'Item 1', selected: false },
-    { title: 'Item 2', selected: false },
-    { title: 'Item 3', selected: false },
-  ];
-  $scope.weaknesses = [
-    { title: 'Item 1', selected: false },
-    { title: 'Item 2', selected: false },
-    { title: 'Item 3', selected: false },
-  ];
-  $scope.resolutions = [
-    { title: 'Item 1', selected: false },
-    { title: 'Item 2', selected: false },
-    { title: 'Item 3', selected: false },
-  ];
+  $scope.close = function() {  $scope.addItemDialog.hide(); };
+  $scope.showAddItem = function(){ $scope.addItemDialog.show(); }
+  $scope.Save = function(){ console.info($scope.blessings); };
 
-  $scope.showAddItem = function(){
-    // $scope.blessings.push({title:title, selected: true});
-    $scope.addItemDialog.show();
-  }
   $scope.Add = function(){
     $scope.addItemDialog.hide();
     $scope.AddItem.selected = true;
@@ -42,22 +20,43 @@ angular.module('cathacklic')
       if(err){ console.warn("Not Added!", err); return;}
       console.info("Added: ", id);
     });
-  }
-  $scope.close = function() {
-    $scope.addItemDialog.hide();
   };
+
+  $scope.Load = function(){
+    $ionicLoading.show({ template: 'Loading...' });
+    DBAccessor.ReadFields(function(err, fields){
+      if(err){ console.warn("Can't Read :(", err); return;}
+      console.log(fields);
+      fields.blessing.forEach(function(i){
+        i.selected = false;
+        $scope.blessings.push(i);
+      });
+      fields.favor.forEach(function(i){
+        i.selected = false;
+        $scope.favors.push(i);
+      });
+      fields.weakness.forEach(function(i){
+        i.selected = false;
+        $scope.weaknesses.push(i);
+      });
+      fields.resolution.forEach(function(i){
+        i.selected = false;
+        $scope.resolutions.push(i);
+      });
+      $ionicLoading.hide();
+    });
+  };
+
+  $scope.AddItem = {};
+  $scope.blessings = [];
+  $scope.favors = [];
+  $scope.weaknesses = [];
+  $scope.resolutions = [];
   $ionicModal.fromTemplateUrl('templates/modal/add.html', {
     scope: $scope
   }).then(function(modal) {
     $scope.addItemDialog = modal;
   });
 
-  $scope.Save = function(){
-    console.info($scope.blessings);
-  };
-
-  DBAccessor.ReadFields(function(err, fields){
-    if(err){ console.warn("Can't Read :(", err); return;}
-    console.log(fields);
-  });
+  $scope.Load();
 });
