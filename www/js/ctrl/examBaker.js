@@ -53,4 +53,13 @@ angular.module('cathacklic')
     console.info($scope.blessings);
   };
 
+  catHACKlic.GetAllBakerExamFields("blessingList", "blessings", function(err, fields) {
+    if(err){
+      console.warn(err);
+      return;
+    }
+    for(var f in fields){
+      console.log(fields[f]);
+    }
+  });
 });
