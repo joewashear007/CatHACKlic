@@ -30,6 +30,15 @@ angular.module('cathacklic', ['ionic', 'cathacklic.controllers'])
     controller: 'AppCtrl'
   })
 
+  .state('app.dashboard', {
+    url: "",
+    views: {
+      'menuContent': {
+        controller: "Dashboard.Ctrl",
+        templateUrl: "templates/dashboard.html"
+      }
+    }
+  })
   .state('app.exam', {
       abstract: true,
       url: "/exam",
@@ -59,5 +68,5 @@ angular.module('cathacklic', ['ionic', 'cathacklic.controllers'])
     });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/playlists');
+  $urlRouterProvider.otherwise('/app');
 });

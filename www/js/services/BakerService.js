@@ -45,6 +45,7 @@ angular.module("cathacklic")
     },
 
     UpgradeDB: function(e){
+      console.info("Running the upgrade!");
       var db = e.target.result;
       if (!db.objectStoreNames.contains(_db_info.store)) {
         var objectStore = db.createObjectStore(_db_info.store, { autoIncrement: true });
