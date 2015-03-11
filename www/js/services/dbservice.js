@@ -40,7 +40,7 @@
     // always returns array of ids
     var ids = [];
     var dataArray;
-    var transaction = db.transaction(name, "readwrite");
+    var transaction = db.transaction(storeName, "readwrite");
     var objstore = transaction.objectStore(storeName);
     var successFunc = function(event) { ids.push(event.target.result); };
     transaction.oncomplete = function(event) { callback(null, ids);  };
@@ -59,7 +59,7 @@
     // always returns array of delete objects
     var ids = [];
     var dataArray;
-    var transaction = db.transaction(name, "readwrite");
+    var transaction = db.transaction(storeName, "readwrite");
     var objstore = transaction.objectStore(storeName);
     var successFunc = function(event) { ids.push(event.target.result); };
     transaction.oncomplete = function(event) { callback(null, ids);  };

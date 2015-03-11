@@ -17,32 +17,36 @@ angular.module('cathacklic')
       default: console.warn("Not on valid scope"); break;
     }
     DBAccessor.AddItem($scope.AddItem, function(err, id){
-      if(err){ console.warn("Not Added!", err); return;}
-      console.info("Added: ", id);
+      if(err){ alert("Not Added!", err); return;}
+      alert("Added: ", id);
     });
   };
 
   $scope.Load = function(){
     $ionicLoading.show({ template: 'Loading...' });
     DBAccessor.ReadFields(function(err, fields){
-      if(err){ console.warn("Can't Read :(", err); return;}
-      console.log(fields);
-      fields.blessing.forEach(function(i){
-        i.selected = false;
-        $scope.blessings.push(i);
-      });
-      fields.favor.forEach(function(i){
-        i.selected = false;
-        $scope.favors.push(i);
-      });
-      fields.weakness.forEach(function(i){
-        i.selected = false;
-        $scope.weaknesses.push(i);
-      });
-      fields.resolution.forEach(function(i){
-        i.selected = false;
-        $scope.resolutions.push(i);
-      });
+      if(err){
+        console.warn("Can't Read :(", err);
+        alert("Can't Read :(");
+      }else {
+        console.log(fields);
+        fields.blessing.forEach(function(i){
+          i.selected = false;
+          $scope.blessings.push(i);
+        });
+        fields.favor.forEach(function(i){
+          i.selected = false;
+          $scope.favors.push(i);
+        });
+        fields.weakness.forEach(function(i){
+          i.selected = false;
+          $scope.weaknesses.push(i);
+        });
+        fields.resolution.forEach(function(i){
+          i.selected = false;
+          $scope.resolutions.push(i);
+        });
+      }
       $ionicLoading.hide();
     });
   };

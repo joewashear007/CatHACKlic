@@ -4,4 +4,10 @@ angular.module('cathacklic')
   $scope.DoExamin = function(){
     $state.go("app.exam.baker");
   };
+
+  $scope.ClearData = function(){
+    var DBDeleteRequest = indexedDB.deleteDatabase("BAKER.Examination");
+    DBDeleteRequest.onerror = function(event) { alert("Error deleting database."); };
+    DBDeleteRequest.onsuccess = function(event) { alert("Database deleted successfully"); };
+  };
 });
