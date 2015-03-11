@@ -46,13 +46,13 @@ angular.module('cathacklic.controllers', [])
   $scope.showAddItem = function(){
     // $scope.blessings.push({title:title, selected: true});
     $scope.addItemDialog.show();
-  }
+  };
   $scope.Add = function(){
     $scope.addItemDialog.hide();
     $scope.AddItem.selected = true;
     $scope.blessings.push($scope.AddItem);
     $scope.AddItem = {};
-  }
+  };
   $scope.close = function() {
     $scope.addItemDialog.hide();
   };

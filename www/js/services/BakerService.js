@@ -65,10 +65,11 @@ angular.module("cathacklic")
           { title: 'firefox', page: "resolution" },
         ];
 
-        var ids = []
+        var ids = [];
+        var successFunc = function(event) { ids.push(event.target.result); };
         for (var i in initData) {
           var request = objectStore.add(initData[i]);
-          request.onsuccess = function(event) { ids.push(event.target.result); };
+          request.onsuccess = successFunc;
         }
       }
     }

@@ -4,8 +4,8 @@
     var openRequest = indexedDB.open(dbName, version);
     openRequest.onsuccess = function(e) { callback(null, e.target.result); };
     openRequest.onerror = function(e) {   callback(e);  };
-    openRequest.onupgradeneeded = function(e){ upgradeFunc(e) };
-  }
+    openRequest.onupgradeneeded = function(e){ upgradeFunc(e); };
+  };
 
   catHACKlic.UpgradeDatabase = function(e) {
     var db = e.target.result;
@@ -14,7 +14,7 @@
       objectStore.createIndex("page", "page", { unique: false });
       objectStore.createIndex("title", "title", { unique: false });
     }
-  }
+  };
 
   catHACKlic.GetFields = function(db, storeName, indexName, callback) {
     var fields = {};
@@ -27,13 +27,13 @@
       var cursor = event.target.result;
       if (cursor) {
         if(typeof fields[cursor.key] == "undefined"){
-          fields[cursor.key] = []
+          fields[cursor.key] = [];
         }
         fields[cursor.key].push(cursor.value);
         cursor.continue();
       }
     };
-  }
+  };
 
   catHACKlic.AddData = function(db, storeName, data, callback) {
     // data can either be object or array
@@ -42,6 +42,7 @@
     var dataArray;
     var transaction = db.transaction(name, "readwrite");
     var objstore = transaction.objectStore(storeName);
+    var successFunc = function(event) { ids.push(event.target.result); };
     transaction.oncomplete = function(event) { callback(null, ids);  };
     transaction.onerror = function(event) { callback(event, null);  };
 
@@ -49,17 +50,18 @@
     else                     { dataArray = data; }
     for (var i in dataArray) {
       var request = objstore.add(dataArray[i]);
-      request.onsuccess = function(event) { ids.push(event.target.result); };
+      request.onsuccess = successFunc;
     }
-  }
+  };
 
   catHACKlic.DeleteData = function(db, storeName, data, callback) {
     // data can either be object or array
     // always returns array of delete objects
-    var ids = []
+    var ids = [];
     var dataArray;
     var transaction = db.transaction(name, "readwrite");
     var objstore = transaction.objectStore(storeName);
+    var successFunc = function(event) { ids.push(event.target.result); };
     transaction.oncomplete = function(event) { callback(null, ids);  };
     transaction.onerror = function(event) { callback(event, null);  };
 
@@ -67,10 +69,10 @@
     else                     { dataArray = data; }
     for (var i in dataArray) {
       var request = objstore.delete(dataArray[i]);
-      request.onsuccess = function(event) { ids.push(event.target.result); };
+      request.onsuccess = successFunc;
       // request.onerror   = function(event) { ids.push(event.target.result); };
     }
-  }
+  };
 
 }( window.catHACKlic = window.catHACKlic || {} ));
 

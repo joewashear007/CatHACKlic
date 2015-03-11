@@ -3,7 +3,7 @@ angular.module('cathacklic')
 .controller('BAKER.Exam.Ctrl', function($scope, $ionicModal, $ionicSlideBoxDelegate, $ionicLoading, DBAccessor) {
 
   $scope.close = function() {  $scope.addItemDialog.hide(); };
-  $scope.showAddItem = function(){ $scope.addItemDialog.show(); }
+  $scope.showAddItem = function(){ $scope.addItemDialog.show(); };
   $scope.Save = function(){ console.info($scope.blessings); };
 
   $scope.Add = function(){
