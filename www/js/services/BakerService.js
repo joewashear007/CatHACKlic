@@ -50,26 +50,11 @@ angular.module("cathacklic")
       if (!db.objectStoreNames.contains(_db_info.store)) {
         var objectStore = db.createObjectStore(_db_info.store, { autoIncrement: true });
         objectStore.createIndex("page", "page", { unique: false });
-        objectStore.createIndex("title", "title", { unique: false });
-        var initData = [
-          { title: 'Atom', page: "blessing" },
-          { title: 'JavaScript', page: "favor" },
-          { title: 'JSON', page: "weakness" },
-          { title: 'git', page: "resolution" },
-          { title: 'GitHub', page: "blessing" },
-          { title: 'Windows 7', page: "favor" },
-          { title: 'Ionic', page: "weakness" },
-          { title: 'android', page: "resolution" },
-          { title: 'alienware mx11', page: "blessing" },
-          { title: 'youtube', page: "favor" },
-          { title: 'ionic view', page: "weakness" },
-          { title: 'firefox', page: "resolution" },
-        ];
 
         var ids = [];
         var successFunc = function(event) { ids.push(event.target.result); };
-        for (var i in initData) {
-          var request = objectStore.add(initData[i]);
+        for (var i in catHACKlic.defaultExam) {
+          var request = objectStore.add(catHACKlic.defaultExam[i]);
           request.onsuccess = successFunc;
         }
       }

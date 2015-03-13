@@ -16,11 +16,14 @@
       <ion-content>
         <div class="card list">
           <ion-item class="item item-toggle" ng-repeat="x in blessings">
-            {{x.title}}
+            <p class="normal-space">{{x.title}}</p>
             <label class="toggle toggle-assertive">
               <input type="checkbox" ng-model="x.selected">
               <div class="track"><div class="handle"></div></div>
             </label>
+          </ion-item>
+          <ion-item ng-if="blessings.length < 1" >
+            <p class="normal-space">"Hmm, nothing here. Please add something."</p>
           </ion-item>
         </div>
 
@@ -36,11 +39,14 @@
       <ion-content>
         <div class="card list">
           <ion-item class="item item-toggle" ng-repeat="x in favors">
-            {{x.title}}
+            <p class="normal-space">{{x.title}}</p>
             <label class="toggle toggle-assertive">
               <input type="checkbox" ng-model="x.selected">
               <div class="track"><div class="handle"></div></div>
             </label>
+          </ion-item>
+          <ion-item ng-if="favors.length < 1" >
+            <p class="normal-space">"Hmm, nothing here. Please add something."</p>
           </ion-item>
         </div>
       </ion-content>
@@ -55,11 +61,14 @@
       <ion-content>
         <div class="card list">
           <ion-item class="item item-toggle" ng-repeat="x in weaknesses">
-            {{x.title}}
+            <p class="normal-space">{{x.title}}</p>
             <label class="toggle toggle-assertive">
               <input type="checkbox" ng-model="x.selected">
               <div class="track"><div class="handle"></div></div>
             </label>
+          </ion-item>
+          <ion-item ng-if="weaknesses.length < 1" >
+            <p class="normal-space">"Hmm, nothing here. Please add something."</p>
           </ion-item>
         </div>
       </ion-content>
@@ -87,11 +96,14 @@
       <ion-content>
         <div class="card list">
           <ion-item class="item item-toggle" ng-repeat="x in resolutions">
-            {{x.title}}
+            <p class="normal-space">{{x.title}}</p>
             <label class="toggle toggle-assertive">
               <input type="checkbox" ng-model="x.selected">
               <div class="track"><div class="handle"></div></div>
             </label>
+          </ion-item>
+          <ion-item ng-if="resolutions.length < 1" >
+            <p class="normal-space">"Hmm, nothing here. Please add something."</p>
           </ion-item>
         </div>
       </ion-content>
@@ -106,13 +118,13 @@
       <ion-content>
         <div class="card list">
           <ion-item class="item item-divider">Blessing</ion-item>
-          <ion-item ng-repeat="x in blessings | filter:{selected:true}">{{x.title}}</ion-item>
+          <ion-item ng-repeat="x in blessings | filter:{selected:true}"><p class="normal-space">{{x.title}}</p></ion-item>
           <ion-item class="item item-divider">Favors</ion-item>
-          <ion-item ng-repeat="x in favors | filter:{selected:true}">{{x.title}}</ion-item>
+          <ion-item ng-repeat="x in favors | filter:{selected:true}"><p class="normal-space">{{x.title}}</p></ion-item>
           <ion-item class="item item-divider">Weakness</ion-item>
-          <ion-item ng-repeat="x in weaknesses | filter:{selected:true}">{{x.title}}</ion-item>
+          <ion-item ng-repeat="x in weaknesses | filter:{selected:true}"><p class="normal-space">{{x.title}}</p></ion-item>
           <ion-item class="item item-divider">Resolutions</ion-item>
-          <ion-item ng-repeat="x in resolutions | filter:{selected:true}">{{x.title}}</ion-item>
+          <ion-item ng-repeat="x in resolutions | filter:{selected:true}"><p class="normal-space">{{x.title}}</p></ion-item>
         </div>
         <button class="button button-block button-positive" ng-click="Save()">Save</button>
       </ion-content>

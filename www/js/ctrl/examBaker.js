@@ -30,21 +30,13 @@ angular.module('cathacklic')
         alert("Can't Read :(");
       }else {
         console.log(fields);
-        fields.blessing.forEach(function(i){
+        fields.forEach(function(i){
           i.selected = false;
-          $scope.blessings.push(i);
-        });
-        fields.favor.forEach(function(i){
-          i.selected = false;
-          $scope.favors.push(i);
-        });
-        fields.weakness.forEach(function(i){
-          i.selected = false;
-          $scope.weaknesses.push(i);
-        });
-        fields.resolution.forEach(function(i){
-          i.selected = false;
-          $scope.resolutions.push(i);
+          if( i.page == "blessing") { $scope.blessings.push(i); }
+          if( i.page == "favor") { $scope.favors.push(i); }
+          if( i.page == "weakness") { $scope.weaknesses.push(i); }
+          if( i.page == "resolution") { $scope.resolutions.push(i); }
+
         });
       }
       $ionicLoading.hide();

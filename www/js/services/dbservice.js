@@ -17,7 +17,7 @@
   };
 
   catHACKlic.GetFields = function(db, storeName, indexName, callback) {
-    var fields = {};
+    var fields = [];
     var transaction = db.transaction(storeName);
     var objstore = transaction.objectStore(storeName);
     var index = objstore.index(indexName);
@@ -26,10 +26,7 @@
     index.openCursor().onsuccess = function(event) {
       var cursor = event.target.result;
       if (cursor) {
-        if(typeof fields[cursor.key] == "undefined"){
-          fields[cursor.key] = [];
-        }
-        fields[cursor.key].push(cursor.value);
+        fields.push(cursor.value);
         cursor.continue();
       }
     };

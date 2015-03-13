@@ -15,3 +15,7 @@ body {
 	top: initial;
 	bottom: 60px !important;
 }
+
+.normal-space{
+  white-space: normal !important;
+}
