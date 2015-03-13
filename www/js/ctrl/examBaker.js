@@ -1,10 +1,20 @@
 angular.module('cathacklic')
 
-.controller('BAKER.Exam.Ctrl', function($scope, $ionicModal, $ionicSlideBoxDelegate, $ionicLoading, DBAccessor) {
+.controller('BAKER.Exam.Ctrl', function($scope, $ionicModal, $ionicSlideBoxDelegate, $ionicLoading, DBAccessor, ExamineService) {
 
   $scope.close = function() {  $scope.addItemDialog.hide(); };
   $scope.showAddItem = function(){ $scope.addItemDialog.show(); };
-  $scope.Save = function(){ console.info($scope.blessings); };
+  $scope.Save = function(){
+    $scope.examination.blessings = $scope.blessings;
+    $scope.examination.favors = $scope.favors;
+    $scope.examination.weaknesses = $scope.weaknesses;
+    $scope.examination.resolutions = $scope.resolutions;
+    ExamineService.SaveExamination($scope.examination, function(err, data){
+      if(err){ alert("Failed to Save!"); console.warn(err); return; }
+      console.info(data);
+      alert("Saved");
+    });
+  };
 
   $scope.Add = function(){
     $scope.addItemDialog.hide();
@@ -18,7 +28,7 @@ angular.module('cathacklic')
     }
     DBAccessor.AddItem($scope.AddItem, function(err, id){
       if(err){ alert("Not Added!", err); return;}
-      alert("Added: ", id);
+      $scope.AddItem = {};
     });
   };
 
@@ -48,6 +58,8 @@ angular.module('cathacklic')
   $scope.favors = [];
   $scope.weaknesses = [];
   $scope.resolutions = [];
+  $scope.examination = ExamineService.NewExamination("BAKER");
+  console.log($scope.examination);
   $ionicModal.fromTemplateUrl('templates/modal/add.html', {
     scope: $scope
   }).then(function(modal) {
