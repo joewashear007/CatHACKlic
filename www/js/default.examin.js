@@ -1,7 +1,7 @@
 (function(catHACKlic){
   catHACKlic.defaultExam = [
     {
-      "title":"Have I gone to Mass every Sunday? Have I participated at Mass or have I daydreamed or been present with a blank mind?",
+      "title":"Have I participated at Mass or have I daydreamed or been present with a blank mind?",
       "page":"weakness"
     },
     {
@@ -9,19 +9,39 @@
       "page":"weakness"
     },
     {
-      "title":"Have I read the Bible? Have I studied the truths of our faith and allowed them to become more a part of the way I think and act? Have I read any spiritual books or religious literature?",
+      "title":"Have I read the Bible?",
       "page":"weakness"
     },
     {
-      "title":"Have I told God that I want to love him with my whole heart, mind and strength? Do I hold any resentments toward God?",
+      "title":"Have I studied the truths of our faith and allowed them to become more a part of the way I think and act?",
       "page":"weakness"
     },
     {
-      "title":"Have I recognized my need for Jesus and his salvation? Have I asked the Holy Spirit to empower me to live the Christian life?",
+      "title":"Have I read any spiritual books or religious literature?",
       "page":"weakness"
     },
     {
-      "title":"Have I been financially generous to the Church? Have I participated in parish or religious activities?",
+      "title":"Have I told God that I want to love him with my whole heart, mind and strength?",
+      "page":"weakness"
+    },
+    {
+      "title":"Do I hold any resentments toward God?",
+      "page":"weakness"
+    },
+    {
+      "title":"Have I recognized my need for Jesus and his salvation?",
+      "page":"weakness"
+    },
+    {
+      "title":"Have I asked the Holy Spirit to empower me to live the Christian life?",
+      "page":"weakness"
+    },
+    {
+      "title":"Have I been financially generous to the Church?",
+      "page":"weakness"
+    },
+    {
+      "title":"Have I participated in parish or religious activities?",
       "page":"weakness"
     },
     {
@@ -45,7 +65,11 @@
       "page":"weakness"
     },
     {
-      "title":"Have I refused to forgive others—parents,relatives, employers, former friend, a former spouse? Have I cultivated hatred?",
+      "title":"Have I refused to forgive others—parents, relatives, employers, former friend, a former spouse?",
+      "page":"weakness"
+    },
+    {
+      "title":"Have I cultivated hatred?",
       "page":"weakness"
     },
     {
@@ -53,7 +77,11 @@
       "page":"weakness"
     },
     {
-      "title":"Have I engaged in sexual fantasies? Have I looked at others lustfully?",
+      "title":"Have I looked at others lustfully?",
+      "page":"weakness"
+    },
+    {
+      "title":"Have I engaged in sexual fantasies?",
       "page":"weakness"
     },
     {
@@ -65,7 +93,11 @@
       "page":"weakness"
     },
     {
-      "title":"Have I lustfully kissed or sexually touched someone? Have I had sexual intercourse?",
+      "title":"Have I lustfully kissed or sexually touched someone?",
+      "page":"weakness"
+    },
+    {
+      "title":"Have I had sexual intercourse?",
       "page":"weakness"
     },
     {
@@ -73,11 +105,27 @@
       "page":"weakness"
     },
     {
-      "title":"Have I gossiped about others? Have I slandered anyone? HaveI told lies about others? Have I mocked or made fun of others?",
+      "title":"Have I gossiped about others?",
       "page":"weakness"
     },
     {
-      "title":"Have I been a Christian witness to those with whom I work or associate? Have I spoken to anyone about the Gospel and how important it is to believe in Jesus?",
+      "title":"Have I slandered anyone?",
+      "page":"weakness"
+    },
+    {
+      "title":"Have I told lies about others? Have I mocked or made fun of others?",
+      "page":"weakness"
+    },
+    {
+      "title":"Have I mocked or made fun of others?",
+      "page":"weakness"
+    },
+    {
+      "title":"Have I spoken to anyone about the Gospel and how important it is to believe in Jesus?",
+      "page":"weakness"
+    },
+    {
+      "title":"Have I been a Christian witness to those with whom I work or associate?",
       "page":"weakness"
     },
     {
