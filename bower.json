@@ -3,5 +3,9 @@
   "private": "true",
   "devDependencies": {
     "ionic": "driftyco/ionic-bower#1.0.0-rc.0"
+  },
+  "dependencies": {
+    "db.js": "~0.10.1",
+    "angular-busy": "~4.1.2"
   }
 }

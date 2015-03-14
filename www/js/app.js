@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('cathacklic', ['ionic', 'cathacklic.controllers'])
+angular.module('cathacklic', ['ionic', 'cgBusy', 'cathacklic.controllers'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -40,32 +40,41 @@ angular.module('cathacklic', ['ionic', 'cathacklic.controllers'])
     }
   })
   .state('app.exam', {
-      abstract: true,
-      url: "/exam",
-      views: {
-        'menuContent': {
-          template: "<ion-nav-view name='examContent'></ion-nav-view>"
-        }
+    abstract: true,
+    url: "/exam",
+    views: {
+      'menuContent': {
+        template: "<ion-nav-view name='examContent'></ion-nav-view>"
       }
-    })
-    .state('app.exam.baker', {
-      url: "/baker",
-      views: {
-        "examContent": {
-          controller: "BAKER.Exam.Ctrl",
-          templateUrl: "templates/exam/baker.html"
-        }
+    }
+  })
+  .state('app.exam.review', {
+    url: "/exam/:id",
+    views: {
+      "examContent": {
+        controller: "Exam.Review.Ctrl",
+        templateUrl: "templates/examReview.html"
       }
-    })
-    .state('app.playlists', {
-      url: "/playlists",
-      views: {
-        'menuContent': {
-          templateUrl: "templates/playlists.html",
-          controller: 'PlaylistsCtrl'
-        }
+    }
+  })
+  .state('app.exam.baker', {
+    url: "/baker",
+    views: {
+      "examContent": {
+        controller: "BAKER.Exam.Ctrl",
+        templateUrl: "templates/exam/baker.html"
       }
-    });
+    }
+  })
+  .state('app.playlists', {
+    url: "/playlists",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/playlists.html",
+        controller: 'PlaylistsCtrl'
+      }
+    }
+  });
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app');

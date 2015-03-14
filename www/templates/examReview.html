@@ -1,0 +1,22 @@
+<ion-view view-title="Review">
+  <ion-content>
+    <div class="card list">
+      <ion-item class="item item-divider">Blessing</ion-item>
+      <ion-item ng-repeat="x in exam.blessings | filter:{selected:true}">
+        <p class="normal-space">{{x.title}}</p>
+      </ion-item>
+      <ion-item class="item item-divider">Favors</ion-item>
+      <ion-item ng-repeat="x in exam.favors | filter:{selected:true}">
+        <p class="normal-space">{{x.title}}</p>
+      </ion-item>
+      <ion-item class="item item-divider">Weakness</ion-item>
+      <ion-item ng-repeat="x in exam.weaknesses | filter:{selected:true}">
+        <p class="normal-space">{{x.title}}</p>
+      </ion-item>
+      <ion-item class="item item-divider">Resolutions</ion-item>
+      <ion-item ng-repeat="x in exam.resolutions | filter:{selected:true}">
+        <p class="normal-space">{{x.title}}</p>
+      </ion-item>
+    </div>
+  </ion-content>
+</ion-view>

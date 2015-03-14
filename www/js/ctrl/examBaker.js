@@ -9,10 +9,12 @@ angular.module('cathacklic')
     $scope.examination.favors = $scope.favors;
     $scope.examination.weaknesses = $scope.weaknesses;
     $scope.examination.resolutions = $scope.resolutions;
-    ExamineService.SaveExamination($scope.examination, function(err, data){
-      if(err){ alert("Failed to Save!"); console.warn(err); return; }
+    ExamineService.SaveExamination($scope.examination).then(function(data){
       console.info(data);
       alert("Saved");
+    }, function(err){
+      alert("Failed to Save!");
+      console.warn(err);
     });
   };
 
@@ -59,7 +61,6 @@ angular.module('cathacklic')
   $scope.weaknesses = [];
   $scope.resolutions = [];
   $scope.examination = ExamineService.NewExamination("BAKER");
-  console.log($scope.examination);
   $ionicModal.fromTemplateUrl('templates/modal/add.html', {
     scope: $scope
   }).then(function(modal) {

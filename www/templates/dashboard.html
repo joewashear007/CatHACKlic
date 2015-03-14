@@ -15,5 +15,13 @@
         <button class="button button-stable" ng-click="ClearData()">Clear Data</button>
       </div>
     </div>
+
+    <div class="card" cg-busy="{promise:Loading, message:'Loading Previous Examinations'}">
+      <div class="item item-divider">
+        <h3>Previous Examinations</h3>
+      </div>
+      <div class="item" ng-repeat="e in PastExamines" ui-sref="app.exam.review({id:e.id})">{{e.id}}: {{e.date}}</div>
+    </div>
+
   </ion-content>
 </ion-view>

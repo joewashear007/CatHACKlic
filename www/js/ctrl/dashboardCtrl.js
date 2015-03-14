@@ -5,6 +5,13 @@ angular.module('cathacklic')
     $state.go("app.exam.baker");
   };
 
+  $scope.PastExamines = null;
+  $scope.Loading = ExamineService.ListExaminations().then(function(data){
+    $scope.PastExamines = data;
+  }, function(err){
+    console.warn(err);
+  });
+
   $scope.ClearData = function(){
     var DBDeleteRequest = indexedDB.deleteDatabase("BAKER.Examination");
     DBDeleteRequest.onerror = function(event) { alert("Error deleting database."); };
