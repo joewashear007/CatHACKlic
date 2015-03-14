@@ -1,6 +1,6 @@
 angular.module('cathacklic')
 
-.controller('BAKER.Exam.Ctrl', function($scope, $ionicModal, $ionicSlideBoxDelegate, $ionicLoading, DBAccessor, ExamineService) {
+.controller('BAKER.Exam.Ctrl', function($scope, $state, $ionicModal, $ionicSlideBoxDelegate, $ionicLoading, DBAccessor, ExamineService) {
 
   $scope.close = function() {  $scope.addItemDialog.hide(); };
   $scope.showAddItem = function(){ $scope.addItemDialog.show(); };
@@ -12,6 +12,7 @@ angular.module('cathacklic')
     ExamineService.SaveExamination($scope.examination).then(function(data){
       console.info(data);
       alert("Saved");
+      $state.go("app.dashboard");
     }, function(err){
       alert("Failed to Save!");
       console.warn(err);

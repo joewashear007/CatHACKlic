@@ -1,16 +1,20 @@
 angular.module('cathacklic')
 
 .controller('Dashboard.Ctrl', function($scope, $state, $ionicLoading, DBAccessor, ExamineService) {
+  $scope.PastExamines = null;
   $scope.DoExamin = function(){
     $state.go("app.exam.baker");
   };
 
-  $scope.PastExamines = null;
-  $scope.Loading = ExamineService.ListExaminations().then(function(data){
-    $scope.PastExamines = data;
-  }, function(err){
-    console.warn(err);
-  });
+
+  $scope.GetPrev = function(){
+    $scope.Loading = ExamineService.ListExaminations().then(function(data){
+      $scope.PastExamines = data;
+      console.log("Done Loading data.");
+    }, function(err){
+      console.warn(err);
+    });
+  };
 
   $scope.ClearData = function(){
     var DBDeleteRequest = indexedDB.deleteDatabase("BAKER.Examination");
@@ -25,4 +29,6 @@ angular.module('cathacklic')
       }
     });
   };
+
+  $scope.GetPrev();
 });
