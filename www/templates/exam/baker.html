@@ -15,12 +15,14 @@
       </ion-header-bar>
       <ion-content>
         <div class="card list">
-          <ion-item class="item item-toggle" ng-repeat="x in blessings">
+          <ion-item class="item item-button-right" ng-repeat="x in blessings" ng-click="x.selected = !x.selected;"
+          ng-class="{'item-energized':x.selected, 'item-light':!x.selected}">
             <p class="normal-space">{{x.title}}</p>
-            <label class="toggle toggle-assertive">
+            <button class="button"><i class="icon ion-more"></i></button>
+            <!-- <label class="toggle toggle-assertive">
               <input type="checkbox" ng-model="x.selected">
               <div class="track"><div class="handle"></div></div>
-            </label>
+            </label> -->
           </ion-item>
           <ion-item ng-if="blessings.length < 1" >
             <p class="normal-space">"Hmm, nothing here. Please add something."</p>

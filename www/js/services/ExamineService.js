@@ -88,7 +88,7 @@ angular.module("cathacklic")
       return new Promise(function(resolve, reject) {
         _open_server().then(function(server) {
           console.log("Obtainted Server!");
-          server.query('id', parseInt(id)).filter().then(function(data) {
+          server.DailyExamines.query().filter("id", parseInt(id)).execute().then(function(data) {
             console.log("fetched data", data);
             resolve(data);
           }, function(err) {
