@@ -16,14 +16,11 @@
       <ion-content>
         <div class="card list">
           <ion-item class="item item-button-right" ng-repeat="x in blessings" ng-click="x.selected = !x.selected;"
-          ng-class="{'item-energized':x.selected, 'item-light':!x.selected}">
-            <p class="normal-space">{{x.title}}</p>
-            <button class="button"><i class="icon ion-more"></i></button>
-            <!-- <label class="toggle toggle-assertive">
-              <input type="checkbox" ng-model="x.selected">
-              <div class="track"><div class="handle"></div></div>
-            </label> -->
+                                                  ng-class="{'item-assertive':x.selected, 'item-light':!x.selected}">
+            <span class="normal-space">{{x.title}}</span>
+            <button class="button" ng-click="ShowEditItem($index, $event)"><i class="icon ion-more"></i></button>
           </ion-item>
+
           <ion-item ng-if="blessings.length < 1" >
             <p class="normal-space">"Hmm, nothing here. Please add something."</p>
           </ion-item>
