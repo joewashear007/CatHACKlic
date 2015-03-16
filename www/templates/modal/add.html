@@ -8,9 +8,13 @@
   <ion-content>
     <form ng-submit="Add()">
       <div class="list">
-        <label class="item item-input">
-          <span class="input-label">Item</span>
-          <input type="text" ng-model="AddItem.title">
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Title</span>
+          <input type="text" placeholder="Title" ng-model="AddItem.title">
+        </label>
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Category</span>
+          <input type="text" placeholder="Category" ng-model="AddItem.category">
         </label>
 
         <label class="item">

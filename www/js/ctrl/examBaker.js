@@ -34,18 +34,23 @@ angular.module('cathacklic')
   };
 
   $scope.Add = function(){
-    $scope.addItemDialog.hide();
     $scope.AddItem.selected = true;
     switch($ionicSlideBoxDelegate.currentIndex()){
-      case 0: $scope.blessings.push($scope.AddItem); $scope.AddItem.page = "blessing"; break;
-      case 1: $scope.favors.push($scope.AddItem); $scope.AddItem.page = "favor"; break;
-      case 2: $scope.weaknesses.push($scope.AddItem); $scope.AddItem.page = "weakness"; break;
-      case 4: $scope.resolutions.push($scope.AddItem); $scope.AddItem.page = "resolution"; break;
+      case 0: $scope.AddItem.page = "blessing"; break;
+      case 1: $scope.AddItem.page = "favor"; break;
+      case 2: $scope.AddItem.page = "weakness"; break;
+      case 4: $scope.AddItem.page = "resolution"; break;
       default: console.warn("Not on valid scope"); break;
     }
     DBAccessor.AddItem($scope.AddItem, function(err, id){
       if(err){ alert("Not Added!", err); return;}
+      $scope.AddItem._id = id[0];
+      if( $scope.AddItem.page == "blessing") { $scope.blessings.push($scope.AddItem); }
+      if( $scope.AddItem.page == "favor") { $scope.favors.push($scope.AddItem); }
+      if( $scope.AddItem.page == "weakness") { $scope.weaknesses.push($scope.AddItem); }
+      if( $scope.AddItem.page == "resolution") { $scope.resolutions.push($scope.AddItem); }
       $scope.AddItem = {};
+      $scope.addItemDialog.hide();
     });
   };
 
