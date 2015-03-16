@@ -15,7 +15,7 @@
       </ion-header-bar>
       <ion-content>
         <div class="card list">
-          <ion-item class="item item-button-right" ng-repeat="x in blessings" ng-click="x.selected = !x.selected;" ng-class="{'item-assertive':x.selected, 'item-light':!x.selected}">
+          <ion-item class="item item-button-right" ng-repeat="x in blessings track by x._id" ng-click="x.selected = !x.selected;" ng-class="{'item-assertive':x.selected, 'item-light':!x.selected}">
             <span class="normal-space">{{x.title}}</span>
             <button class="button" ng-click="ShowEditItem($index, $event)"><i class="icon ion-more"></i></button>
           </ion-item>
@@ -36,7 +36,7 @@
       </ion-header-bar>
       <ion-content>
         <div class="card list">
-          <ion-item class="item item-button-right" ng-repeat="x in favors" ng-click="x.selected = !x.selected;" ng-class="{'item-assertive':x.selected, 'item-light':!x.selected}">
+          <ion-item class="item item-button-right" ng-repeat="x in favors track by x._id" ng-click="x.selected = !x.selected;" ng-class="{'item-assertive':x.selected, 'item-light':!x.selected}">
             <span class="normal-space">{{x.title}}</span>
             <button class="button" ng-click="ShowEditItem($index, $event)"><i class="icon ion-more"></i></button>
           </ion-item>
@@ -55,7 +55,7 @@
       </ion-header-bar>
       <ion-content>
         <div class="card list">
-          <ion-item class="item item-button-right" ng-repeat="x in weaknesses" ng-click="x.selected = !x.selected;" ng-class="{'item-assertive':x.selected, 'item-light':!x.selected}">
+          <ion-item class="item item-button-right" ng-repeat="x in weaknesses track by x._id" ng-click="x.selected = !x.selected;" ng-class="{'item-assertive':x.selected, 'item-light':!x.selected}">
             <span class="normal-space">{{x.title}}</span>
             <button class="button" ng-click="ShowEditItem($index, $event)"><i class="icon ion-more"></i></button>
           </ion-item>
@@ -87,7 +87,7 @@
       </ion-header-bar>
       <ion-content>
         <div class="card list">
-          <ion-item class="item item-button-right" ng-repeat="x in resolutions" ng-click="x.selected = !x.selected;" ng-class="{'item-assertive':x.selected, 'item-light':!x.selected}">
+          <ion-item class="item item-button-right" ng-repeat="x in resolutions track by x._id" ng-click="x.selected = !x.selected;" ng-class="{'item-assertive':x.selected, 'item-light':!x.selected}">
             <span class="normal-space">{{x.title}}</span>
             <button class="button" ng-click="ShowEditItem($index, $event)"><i class="icon ion-more"></i></button>
           </ion-item>
@@ -107,13 +107,13 @@
       <ion-content>
         <div class="card list">
           <ion-item class="item item-divider">Blessing</ion-item>
-          <ion-item ng-repeat="x in blessings | filter:{selected:true}"><p class="normal-space">{{x.title}}</p></ion-item>
+          <ion-item ng-repeat="x in blessings track by x._id | filter:{selected:true}"><p class="normal-space">{{x.title}}</p></ion-item>
           <ion-item class="item item-divider">Favors</ion-item>
-          <ion-item ng-repeat="x in favors | filter:{selected:true}"><p class="normal-space">{{x.title}}</p></ion-item>
+          <ion-item ng-repeat="x in favors track by x._id | filter:{selected:true}"><p class="normal-space">{{x.title}}</p></ion-item>
           <ion-item class="item item-divider">Weakness</ion-item>
-          <ion-item ng-repeat="x in weaknesses | filter:{selected:true}"><p class="normal-space">{{x.title}}</p></ion-item>
+          <ion-item ng-repeat="x in weaknesses track by x._id | filter:{selected:true}"><p class="normal-space">{{x.title}}</p></ion-item>
           <ion-item class="item item-divider">Resolutions</ion-item>
-          <ion-item ng-repeat="x in resolutions | filter:{selected:true}"><p class="normal-space">{{x.title}}</p></ion-item>
+          <ion-item ng-repeat="x in resolutions track by x._id | filter:{selected:true}"><p class="normal-space">{{x.title}}</p></ion-item>
         </div>
         <button class="button button-block button-positive" ng-click="Save()">Save</button>
       </ion-content>

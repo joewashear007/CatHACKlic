@@ -64,6 +64,21 @@ angular.module('cathacklic')
     });
   };
 
+  $scope.DeleteItem = function(){
+    var _item_id;
+    switch($ionicSlideBoxDelegate.currentIndex()){
+      case 0: _item_id = $scope.blessings[_edit_index]._id; $scope.blessings.splice(_edit_index,1); break;
+      case 1: _item_id = $scope.favors[_edit_index]._id; $scope.favors.splice(_edit_index,1); break;
+      case 2: _item_id = $scope.weaknesses[_edit_index]._id; $scope.weaknesses.splice(_edit_index,1); break;
+      case 4: _item_id = $scope.resolutions[_edit_index]._id; $scope.resolutions.splice(_edit_index,1); break;
+      default: console.warn("Not on valid scope"); break;
+    }
+    DBAccessor.RemoveItem(_item_id, function(err, id){
+      if(err){ alert("Not Removed!", err); return;}
+      $scope.EditItemDialog.hide();
+    });
+  };
+
   $scope.Load = function(){
     $ionicLoading.show({ template: 'Loading...' });
     DBAccessor.ReadFields(function(err, fields){
