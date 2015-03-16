@@ -1,9 +1,23 @@
 angular.module('cathacklic')
 
 .controller('BAKER.Exam.Ctrl', function($scope, $state, $ionicModal, $ionicSlideBoxDelegate, $ionicLoading, DBAccessor, ExamineService) {
+  var _edit_index;
 
   $scope.close = function() {  $scope.addItemDialog.hide(); };
-  $scope.showAddItem = function(){ $scope.addItemDialog.show(); };
+  $scope.CloseEditDialog = function() {  $scope.EditItemDialog.hide(); };
+  $scope.showAddItem = function($event){$scope.addItemDialog.show();};
+  $scope.ShowEditItem = function($index, $event){
+    switch($ionicSlideBoxDelegate.currentIndex()){
+      case 0: $scope.ItemToEdit = $scope.blessings[$index]; break;
+      case 1: $scope.ItemToEdit = $scope.favors[$index]; break;
+      case 2: $scope.ItemToEdit = $scope.weaknesses[$index]; break;
+      case 4: $scope.ItemToEdit = $scope.resolutions[$index]; break;
+      default: console.warn("Not on valid scope"); break;
+    }
+    _edit_index = $index;
+    $event.stopPropagation();
+    $scope.EditItemDialog.show();
+  };
   $scope.Save = function(){
     $scope.examination.blessings = $scope.blessings;
     $scope.examination.favors = $scope.favors;
@@ -35,6 +49,21 @@ angular.module('cathacklic')
     });
   };
 
+  $scope.EditItem = function(){
+    var _item_id;
+    switch($ionicSlideBoxDelegate.currentIndex()){
+      case 0: $scope.blessings[_edit_index] = $scope.ItemToEdit; _item_id = $scope.blessings[_edit_index]._id; break;
+      case 1: $scope.favors[_edit_index] = $scope.ItemToEdit; _item_id = $scope.favors[_edit_index]._id; break;
+      case 2: $scope.weaknesses[_edit_index] = $scope.ItemToEdit; _item_id = $scope.weaknesses[_edit_index]._id; break;
+      case 4: $scope.resolutions[_edit_index] = $scope.ItemToEdit; _item_id = $scope.resolutions[_edit_index]._id; break;
+      default: console.warn("Not on valid scope"); break;
+    }
+    DBAccessor.EditItem(_item_id, $scope.ItemToEdit, function(err, id){
+      if(err){ alert("Not Edited!", err); return;}
+      $scope.EditItemDialog.hide();
+    });
+  };
+
   $scope.Load = function(){
     $ionicLoading.show({ template: 'Loading...' });
     DBAccessor.ReadFields(function(err, fields){
@@ -57,15 +86,17 @@ angular.module('cathacklic')
   };
 
   $scope.AddItem = {};
+  $scope.ItemToEdit = {};
   $scope.blessings = [];
   $scope.favors = [];
   $scope.weaknesses = [];
   $scope.resolutions = [];
   $scope.examination = ExamineService.NewExamination("BAKER");
-  $ionicModal.fromTemplateUrl('templates/modal/add.html', {
-    scope: $scope
-  }).then(function(modal) {
+  $ionicModal.fromTemplateUrl('templates/modal/add.html', {scope: $scope}).then(function(modal) {
     $scope.addItemDialog = modal;
+  });
+  $ionicModal.fromTemplateUrl('templates/modal/edit.html', {scope: $scope}).then(function(modal) {
+    $scope.EditItemDialog = modal;
   });
 
   $scope.Load();

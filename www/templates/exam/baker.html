@@ -15,8 +15,7 @@
       </ion-header-bar>
       <ion-content>
         <div class="card list">
-          <ion-item class="item item-button-right" ng-repeat="x in blessings" ng-click="x.selected = !x.selected;"
-                                                  ng-class="{'item-assertive':x.selected, 'item-light':!x.selected}">
+          <ion-item class="item item-button-right" ng-repeat="x in blessings" ng-click="x.selected = !x.selected;" ng-class="{'item-assertive':x.selected, 'item-light':!x.selected}">
             <span class="normal-space">{{x.title}}</span>
             <button class="button" ng-click="ShowEditItem($index, $event)"><i class="icon ion-more"></i></button>
           </ion-item>
@@ -37,12 +36,9 @@
       </ion-header-bar>
       <ion-content>
         <div class="card list">
-          <ion-item class="item item-toggle" ng-repeat="x in favors">
-            <p class="normal-space">{{x.title}}</p>
-            <label class="toggle toggle-assertive">
-              <input type="checkbox" ng-model="x.selected">
-              <div class="track"><div class="handle"></div></div>
-            </label>
+          <ion-item class="item item-button-right" ng-repeat="x in favors" ng-click="x.selected = !x.selected;" ng-class="{'item-assertive':x.selected, 'item-light':!x.selected}">
+            <span class="normal-space">{{x.title}}</span>
+            <button class="button" ng-click="ShowEditItem($index, $event)"><i class="icon ion-more"></i></button>
           </ion-item>
           <ion-item ng-if="favors.length < 1" >
             <p class="normal-space">"Hmm, nothing here. Please add something."</p>
@@ -59,12 +55,9 @@
       </ion-header-bar>
       <ion-content>
         <div class="card list">
-          <ion-item class="item item-toggle" ng-repeat="x in weaknesses">
-            <p class="normal-space">{{x.title}}</p>
-            <label class="toggle toggle-assertive">
-              <input type="checkbox" ng-model="x.selected">
-              <div class="track"><div class="handle"></div></div>
-            </label>
+          <ion-item class="item item-button-right" ng-repeat="x in weaknesses" ng-click="x.selected = !x.selected;" ng-class="{'item-assertive':x.selected, 'item-light':!x.selected}">
+            <span class="normal-space">{{x.title}}</span>
+            <button class="button" ng-click="ShowEditItem($index, $event)"><i class="icon ion-more"></i></button>
           </ion-item>
           <ion-item ng-if="weaknesses.length < 1" >
             <p class="normal-space">"Hmm, nothing here. Please add something."</p>
@@ -94,12 +87,9 @@
       </ion-header-bar>
       <ion-content>
         <div class="card list">
-          <ion-item class="item item-toggle" ng-repeat="x in resolutions">
-            <p class="normal-space">{{x.title}}</p>
-            <label class="toggle toggle-assertive">
-              <input type="checkbox" ng-model="x.selected">
-              <div class="track"><div class="handle"></div></div>
-            </label>
+          <ion-item class="item item-button-right" ng-repeat="x in resolutions" ng-click="x.selected = !x.selected;" ng-class="{'item-assertive':x.selected, 'item-light':!x.selected}">
+            <span class="normal-space">{{x.title}}</span>
+            <button class="button" ng-click="ShowEditItem($index, $event)"><i class="icon ion-more"></i></button>
           </ion-item>
           <ion-item ng-if="resolutions.length < 1" >
             <p class="normal-space">"Hmm, nothing here. Please add something."</p>

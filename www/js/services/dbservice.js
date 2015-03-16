@@ -9,8 +9,8 @@
 
   catHACKlic.UpgradeDatabase = function(e) {
     var db = e.target.result;
-    if (!db.objectStoreNames.contains(name)) {
-      var objectStore = db.createObjectStore(name, { autoIncrement: true });
+    if (!db.objectStoreNames.contains("_id")) {
+      var objectStore = db.createObjectStore("_id", { autoIncrement: true });
       objectStore.createIndex("page", "page", { unique: false });
       objectStore.createIndex("title", "title", { unique: false });
     }
@@ -50,6 +50,26 @@
       request.onsuccess = successFunc;
     }
   };
+
+  catHACKlic.EditData = function(db, storeName, id, data, callback) {
+    var transaction = db.transaction(storeName, "readwrite");
+    var objstore = transaction.objectStore(storeName);
+    // transaction.oncomplete = function(event) { callback(null, ids);  };
+    transaction.onerror = function(event) { callback(event, null); };
+
+    var request = objstore.get(id);
+    request.onerror = function(event) { callback(event, null); };
+    request.onsuccess = function(event) {
+      Object.keys(data).forEach(function(key){
+        request.result[key] = data[key];
+      });
+
+      var requestUpdate = objstore.put(request.result);
+      requestUpdate.onerror = function(event) { callback(event, null); };
+      requestUpdate.onsuccess = function(event) { callback(null, event); };
+    };
+  };
+
 
   catHACKlic.DeleteData = function(db, storeName, data, callback) {
     // data can either be object or array

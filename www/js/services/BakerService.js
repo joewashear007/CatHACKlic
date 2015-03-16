@@ -18,6 +18,13 @@ angular.module("cathacklic")
       });
     },
 
+    EditItem: function(id, obj, callback){
+      DBAccessor.LoadDB(function(err, db){
+        if(err){ callback(err); return; }
+        catHACKlic.EditData(db, _db_info.store, id, obj, callback);
+      });
+    },
+
     RemoveItem: function(obj, callback){
       DBAccessor.LoadDB(function(err, db){
         if(err){ callback(err); return; }
@@ -48,7 +55,7 @@ angular.module("cathacklic")
       console.info("Running the upgrade!");
       var db = e.target.result;
       if (!db.objectStoreNames.contains(_db_info.store)) {
-        var objectStore = db.createObjectStore(_db_info.store, { autoIncrement: true });
+        var objectStore = db.createObjectStore(_db_info.store, { keyPath: "_id", autoIncrement: true });
         objectStore.createIndex("page", "page", { unique: false });
 
         var ids = [];
