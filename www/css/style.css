@@ -1,6 +1,7 @@
 /* Empty. Add your own CSS if you like */
 body {
   cursor: url('http://ionicframework.com/img/finger.png'), auto;
+  background-color: #333;
 }
 
 .slider{
@@ -18,4 +19,16 @@ body {
 
 .normal-space{
   white-space: normal !important;
+}
+
+.pane , .modal, .card {
+  background-color: #333 !important;
+  color: white;
+}
+.item, .item-light, .item.item-light {
+  background-color: #222;
+  color: #ccc;
+}
+input, h3,h4,h2 {
+  color: #ccc !important;;
 }
